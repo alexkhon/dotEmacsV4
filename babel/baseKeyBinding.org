@@ -1,0 +1,117 @@
+;; ============================================
+;; Minimize Key Bindings
+;; ============================================
+
+;; Clobber ALL keybindings
+;; ..............................................
+(use-global-map (make-sparse-keymap))
+
+;; Enable keyboard keys
+;; ..............................................
+(global-set-key [t] #'self-insert-command)
+(let ((c ?\s))
+  (while (< c ?\d)
+    (global-set-key (vector c) #'self-insert-command)
+    (setq c (1+ c)))
+  (when (eq system-type 'ms-dos)
+    (setq c 128)
+    (while (< c 160)
+      (global-set-key (vector c) #'self-insert-command)
+      (setq c (1+ c))))
+  (setq c 160)
+  (while (< c 256)
+    (global-set-key (vector c) #'self-insert-command)
+    (setq c (1+ c))))
+
+;; ============================================
+;; Base set of keys
+;; ============================================
+;; C-g is enabled by default, but not in a region
+(global-set-key (kbd "C-g")         #'keyboard-quit)
+(global-set-key (kbd "M-x")         #'execute-extended-command)
+(global-set-key (kbd "RET")         #'newline)
+(global-set-key (kbd "TAB")         #'indent-for-tab-command)
+
+;; movement - vertical
+(global-set-key (kbd "C-p")         #'previous-line)
+(global-set-key (kbd "C-n")         #'next-line)
+
+;; movement - horizontal
+(global-set-key (kbd "C-b")         #'left-char)
+(global-set-key (kbd "M-b")         #'left-word)
+(global-set-key (kbd "C-f")         #'right-char)
+(global-set-key (kbd "M-f")         #'right-word)
+
+
+;; deletion and killing
+(global-set-key (kbd "C-d")         #'delete-char)
+(global-set-key (kbd "M-d")         #'kill-word)
+
+(global-set-key (kbd "C-k")         #'kill-line)
+;;(global-set-key (kbd "M-k")         #'kill-sentence)  ; default
+(global-set-key (kbd "M-k")         #'kill-whole-line)  ; better
+
+
+;; Universal Argument
+;; ..............................................
+;; (global-set-key (kbd "C-<number>")    #'digit-argument) ;; not working
+;; (global-set-key (kbd "M-<number>")    #'digit-argument) ;; not working
+
+(global-set-key (kbd "C-u")         #'universal-argument)
+(global-set-key (kbd "M-u")         #'universal-argument)
+
+
+
+;; ============================================
+;; Default Key maps
+;; ============================================
+
+;; ctrl-h-map
+;; https://www.emacswiki.org/emacs/PrefixKey
+;; ..............................................
+(define-prefix-command 'ctrl-h-map)
+(global-set-key (kbd "C-h") 'ctrl-h-map)
+
+;; mapping
+(define-key ctrl-h-map (kbd "k") #'describe-key)
+(define-key ctrl-h-map (kbd "f") #'describe-function)
+(define-key ctrl-h-map (kbd "v") #'describe-variable)
+(define-key ctrl-h-map (kbd "b") #'describe-bindings)
+(define-key ctrl-h-map (kbd "m") #'describe-mode)
+
+;; ctrl-x-map
+;; https://www.emacswiki.org/emacs/PrefixKey
+;; ..............................................
+(define-prefix-command 'ctrl-x-map)
+(global-set-key (kbd "C-x") 'ctrl-x-map)
+
+;; mapping
+;;(define-key ctrl-x-map (kbd "C-c") #'kill-emacs)
+(define-key ctrl-x-map (kbd "C-c") #'save-buffers-kill-emacs)
+(define-key ctrl-x-map (kbd "C-s") #'save-buffer)
+(define-key ctrl-x-map (kbd "C-w") #'write-buffer)
+;; ---- file
+(define-key ctrl-x-map (kbd "C-f") #'find-file)
+;; ---- region
+(define-key ctrl-x-map (kbd "C-x") #'exchange-point-and-mark)
+(define-key ctrl-x-map (kbd "SPC") #'rectangle-mark-mode)
+;; ---- buffer
+;; iBuffer: https://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/
+(define-key ctrl-x-map (kbd "b") #'switch-to-buffer)   ;; default
+;;(define-key ctrl-x-map (kbd "b")   #'ibuffer)            ;; better
+(define-key ctrl-x-map (kbd "k")   #'kill-buffer)
+;; ---- dired
+(define-key ctrl-x-map (kbd "d")   #'dired)
+;; ---- windows
+(define-key ctrl-x-map (kbd "0")   #'delete-window)
+(define-key ctrl-x-map (kbd "1")   #'delete-other-windows)
+(define-key ctrl-x-map (kbd "2")   #'split-window-below) ;; customized
+(define-key ctrl-x-map (kbd "3")   #'split-window-right) ;; customized
+;; ---- delete
+(define-key ctrl-x-map (kbd "DEL")   #'backward-kill-sentence) ;; default
+;; ---- lisp
+(define-key ctrl-x-map (kbd "C-e")   #'eval-last-sexp) ;; default
+;; ---- macros
+(define-key ctrl-x-map (kbd "(")   #'kmacro-start-macro) ;; default
+(define-key ctrl-x-map (kbd ")")   #'kmacro-end-macro) ;; default
+(define-key ctrl-x-map (kbd "e")   #'kmacro-end-and-call-macro) ;; default

@@ -1,0 +1,29 @@
+* Consult
+
+** Source
+https://github.com/minad/consult
+
+** Summary - minibuffer modification
+Consult provides search and navigation commands based on the Emacs
+completion function completing-read. Completion allows you to quickly
+select an item from a list of candidates.
+
+** Key Feature
+The items listed by consult is previewed.
+
+** consult-buffer
+Show buffers
+
+** consult-yank-pop
+popping previously yanked items
+
+** consult-grep / consult-ripgrep / consult-find
+
+** consult-complex-command
+History of M-x commands
+
+** consult-org-heading
+
+** consult-man / consult-info
+
+** consult-theme
