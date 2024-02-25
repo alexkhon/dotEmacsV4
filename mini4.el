@@ -236,7 +236,8 @@
 (straight-use-package 'consult)
 (use-package consult
   :bind
-  (:map ctl-x-map ("b" . consult-buffer))
+  (("M-s" . consult-line)
+   :map ctl-x-map ("b" . consult-buffer))
   )
 
 ;; ---------------------------------------------------------------------------
