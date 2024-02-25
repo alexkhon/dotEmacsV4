@@ -60,6 +60,53 @@
 (set-face-attribute 'line-number-current-line nil :foreground "#ECEFF4")
 
 ;; ===========================================================================
+;; Misc Properties
+;; ===========================================================================
+;; Automatically follow sumbolic links
+;; My config files are all symlinks. This faciliates opening those files
+;; ...................................
+(setq vc-follow-symlinks t)
+
+;; recentf mode
+;; List of rencently opened files
+;; Use: consult-recent-file
+;; ...................................
+(recentf-mode 1)
+
+;; Clean up when saving
+;; ...................................
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; ===========================================================================
+;; parenthesis
+;; ===========================================================================
+(electric-pair-mode t)
+
+;; ===========================================================================
+;; mark
+;; ===========================================================================
+(delete-selection-mode 1)
+
+;; ===========================================================================
+;; save a recent files list
+;; ===========================================================================
+(recentf-mode t)
+
+;; Highlight current line
+;; Set colors using Nord https://www.nordtheme.com
+;; ..............................................
+(global-hl-line-mode 1)
+
+;; Enable transpacent encryption
+;; https://orgmode.org/worg/org-tutorials/encrypting-files.html
+;; ..............................................
+(require 'epa-file)
+(epa-file-enable)
+;; https://colinxy.github.io/software-installation/2016/09/24/emacs25-easypg-issue.html
+;; If this line is not there, you get error: "inappropriate ioctl for device"
+(setq epa-pinentry-mode 'loopback)
+
+;; ===========================================================================
 ;; Set mode-line
 ;; ===========================================================================
 ;; Date Time in mode-line
