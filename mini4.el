@@ -11,6 +11,11 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; https://emacs.stackexchange.com/questions/2350/how-to-toggle-fullscreen-in-emacs-gui-mode-full-screen-option-is-greyed-out-i
+;; <f11>   toggle-frame-fullscreen
+;; M-<f10> toggle-frame-maximized
+(toggle-frame-fullscreen)
+
 ;; ===========================================================================
 ;; Set base font
 ;; https://stackoverflow.com/questions/6026713/how-do-i-change-emacs-default-font-size-and-font-type
