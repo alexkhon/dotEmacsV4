@@ -363,6 +363,28 @@
   :config
   )
 
+;; emacs ePub reader
+;; https://tech.toryanderson.com/2022/11/23/viewing-epub-in-emacs/
+;; https://depp.brause.cc/nov.el/
+;; ---------------------------------------------------------------------------
+(straight-use-package 'esxml)
+
+;;
+(straight-use-package 'nov)
+(use-package nov
+  :init
+  (setq nov-text-width 80)
+  (setq nov-text-width t)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  (add-hook 'nov-mode-hook 'visual-line-mode)
+  (add-hook 'nov-mode-hook 'visual-fill-column-mode)
+  )
+
+;; emacs org-noter
+;; ---------------------------------------------------------------------------
+(straight-use-package 'org-noter)
+
 ;; ===========================================================================
 ;; Babel configuration code
 ;; ===========================================================================
