@@ -266,6 +266,7 @@
 ;; ---------------------------------------------------------------------------
 (straight-use-package 'try)
 
+;; ---------------------------------------------------------------------------
 (straight-use-package 'visual-fill-column)
 (use-package visual-fill-column
   :bind
