@@ -194,6 +194,15 @@
   (straight-use-package-by-default t))
 
 ;; ===========================================================================
+;; Override outdated default packages
+;; ===========================================================================
+;; Use updated org-mode package
+;; - required by org-roam
+;; This must be invoked BEFORE any org-babel-load-files occur
+;; or emacs will report a version conflict
+(straight-use-package 'org)
+
+;; ===========================================================================
 ;; Install ef themes
 ;; ===========================================================================
 ;; https://protesilaos.com/emacs/ef-themes
@@ -342,6 +351,16 @@
   ;; Enable `dired-preview-mode' in a given Dired buffer or do it
   ;; globally:
   (dired-preview-global-mode 1)
+  )
+
+;; org-roam
+;; ---------------------------------------------------------------------------
+(straight-use-package 'org-roam)
+
+(use-package org-roam
+  :init
+  (setq org-roam-directory (file-truename "~/Notebook/org-roam"))
+  :config
   )
 
 ;; ===========================================================================
