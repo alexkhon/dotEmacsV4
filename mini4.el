@@ -97,6 +97,11 @@
 ;; ..............................................
 (global-hl-line-mode 1)
 
+;; Show fill line
+;; This is set in conjunction with visual-fill-column mode
+(setq-default fill-column 80)
+(global-display-fill-column-indicator-mode 1)
+
 ;; Enable transpacent encryption
 ;; https://orgmode.org/worg/org-tutorials/encrypting-files.html
 ;; ..............................................
@@ -267,6 +272,8 @@
   ("<f12>" . visual-fill-column-mode)
   :init
   (setq-default visual-fill-column-center-text t)
+  ;; add padding for display-fill-column-indicator-column
+  (setq-default visual-fill-column-extra-text-width (cons '3 3))
   )
 
 ;; ===========================================================================
