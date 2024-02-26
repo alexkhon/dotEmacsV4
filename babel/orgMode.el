@@ -1,33 +1,3 @@
-;; https://github.com/minad/org-modern
-(setq
- ;; Edit settings
- org-auto-align-tags nil
- org-tags-column 0
- org-catch-invisible-edits 'show-and-error
- org-special-ctrl-a/e t
- org-insert-heading-respect-content t
-
- ;; Org styling, hide markup etc.
- org-log-into-drawer 't
- org-hide-emphasis-markers t
-
- ;; setting org-pretty-entities to nil stops the underscore issue
- org-pretty-entities nil
- org-ellipsis "↴"
-
- ;; Agenda styling
- org-agenda-tags-column 0
- org-agenda-block-separator ?─
- org-agenda-time-grid
- '((daily today require-timed)
-   (800 1000 1200 1400 1600 1800 2000)
-   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
- org-agenda-current-time-string
- "⭠ now ─────────────────────────────────────────────────")
-
-;; default tables work better for me
-;; (setq org-modern-table nil)
-
 ;; use the org-mode speed keys
 (setq org-use-speed-commands t)
 
