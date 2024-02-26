@@ -244,6 +244,12 @@
 (straight-use-package 'try)
 
 (straight-use-package 'visual-fill-column)
+(use-package visual-fill-column
+  :bind
+  ("<f12>" . visual-fill-column-mode)
+  :init
+  (setq-default visual-fill-column-center-text t)
+  )
 
 ;; ===========================================================================
 ;; Babel configuration code
