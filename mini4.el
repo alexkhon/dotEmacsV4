@@ -202,6 +202,11 @@
 ;; or emacs will report a version conflict
 (straight-use-package 'org)
 
+(use-package org
+  :config
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  )
+
 ;; ===========================================================================
 ;; Install ef themes
 ;; ===========================================================================
