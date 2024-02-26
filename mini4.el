@@ -190,14 +190,32 @@
 
 ;; ===========================================================================
 ;; Install ef themes
-;; https://protesilaos.com/emacs/ef-themes
 ;; ===========================================================================
+;; https://protesilaos.com/emacs/ef-themes
+;; ---------------------------------------------------------------------------
 (straight-use-package 'ef-themes)
-(use-package ef-themes
-  :init
-  (setq ef-themes-to-toggle '(ef-duo-dark ef-duo-light))
-  :config
-  (load-theme 'ef-duo-dark :no-confirm))
+;;(use-package ef-themes
+;;  :init
+;;  (setq ef-themes-to-toggle '(ef-duo-dark ef-duo-light))
+;;  :config
+;;  (load-theme 'ef-duo-dark :no-confirm))
+
+;; https://protesilaos.com/emacs/modus-themes
+;; modus is built into emacs as of 28.1
+;; ---------------------------------------------------------------------------
+;;; For the built-in themes which cannot use `require'.
+(require-theme 'modus-themes)
+
+;; Add all your customizations prior to loading the themes.
+(setq modus-themes-italic-constructs t
+      modus-themes-bold-constructs nil)
+
+;; Load the theme of your choice.
+(load-theme 'modus-vivendi)
+
+;; Optionally define a key to switch between Modus themes.  Also check
+;; the user option `modus-themes-to-toggle'.
+(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 
 ;; ===========================================================================
 ;; Install global packages
