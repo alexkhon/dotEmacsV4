@@ -322,7 +322,27 @@
   (with-eval-after-load 'org (global-org-modern-mode))
   )
 
+;; dired-preview
+;; https://protesilaos.com/emacs/dired-preview
+;; ---------------------------------------------------------------------------
+(straight-use-package 'dired-preview)
 
+(use-package dired-preview
+  :init
+  ;; preview dealy of 0.0 causes emacs to flicker
+  (setq dired-preview-delay 0.25)
+  (setq dired-preview-max-size (expt 2 20))
+  (setq dired-preview-ignored-extensions-regexp
+	(concat "\\."
+		"\\(mkv\\|webm\\|mp4\\|mp3\\|ogg\\|m4a"
+		"\\|gz\\|zst\\|tar\\|xz\\|rar\\|zip"
+		"\\|iso\\|epub\\|pdf\\)"))
+
+  :config
+  ;; Enable `dired-preview-mode' in a given Dired buffer or do it
+  ;; globally:
+  (dired-preview-global-mode 1)
+  )
 
 ;; ===========================================================================
 ;; Babel configuration code
