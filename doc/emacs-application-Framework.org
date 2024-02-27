@@ -1,0 +1,49 @@
+
+* ---- <2024-02-27 Tue 16:00> First installtion
+** Documentation
+https://github.com/emacs-eaf/emacs-application-framework
+** Notes before installing
+1. Check python version
+2. Check npm version
+** Installation
+1. git clone --depth=1 -b master https://github.com/emacs-eaf/emacs-application-framework.git ~/.emacs.d/site-lisp/emacs-application-framework/
+2. cd emacs-application-framework
+3. chmod +x ./install-eaf.py
+4. ./install-eaf.py
+** Results [FAIL]
+*** Results
+1. Seems to run, but nothing happens
+*** Message
+ModuleNotFoundError: No module named 'PyQt6'
+
+Process *eaf* exited abnormally with code 1
+Traceback (most recent call last):
+  File "/Users/alex/.emacs.d/site-lisp/emacs-application-framework/eaf.py", line 25, in <module>
+    from PyQt6 import QtWebEngineWidgets as NeverUsed # noqa
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'PyQt6'
+
+Process *eaf* exited abnormally with code 1
+** Updating
+1. From shell: git pull && ./install-eaf.py
+2. From emacs: M-x eaf-install-and-update
+** Config
+*** For manual install
+(add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/")
+(require 'eaf)
+(require 'eaf-browser)
+(require 'eaf-pdf-viewer)
+*** Doesn't work
+(use-package eaf
+  :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
+  :custom
+  ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+  (eaf-browser-continue-where-left-off t)
+  (eaf-browser-enable-adblocker t)
+  (browse-url-browser-function 'eaf-open-browser)
+  :config
+  (defalias 'browse-web #'eaf-open-browser)
+  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key take_photo "p" eaf-camera-keybinding)
+  (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
