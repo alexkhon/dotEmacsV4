@@ -1,0 +1,15 @@
+
+
+
+* org-mode
+** links
+*** org-toggle-link-display <UNBOUND>
+Toggles between underlined entry and bracketed entry.
+Bracketed entry is easier for editing
+*** org-insert-link C-c C-l
+*** org-open-at-point C-c C-o
+
+* TODO
+** org-speed-command
+1. define your own speed commands (remove stuff you don't use!). See
+   org-keys.el.
