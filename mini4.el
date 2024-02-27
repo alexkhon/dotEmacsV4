@@ -106,7 +106,7 @@
 ;; ..............................................
 (setq doc-view-resolution 220)
 
-;; Enable transpacent encryption
+;; Enable transparent encryption
 ;; https://orgmode.org/worg/org-tutorials/encrypting-files.html
 ;; ..............................................
 (require 'epa-file)
