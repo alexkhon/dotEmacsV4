@@ -207,6 +207,11 @@
 (straight-use-package 'org)
 
 (use-package org
+  :init
+  (setq
+   org-log-into-drawer t
+   org-use-speed-commands t
+   )
   :config
   (add-hook 'org-mode-hook 'org-indent-mode)
   )

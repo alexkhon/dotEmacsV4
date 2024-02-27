@@ -1,6 +1,3 @@
-;; use the org-mode speed keys
-(setq org-use-speed-commands t)
-
 ;; Reference
 ;; https://emacs.stackexchange.com/questions/16792/easiest-way-to-check-if-current-line-is-empty-ignoring-whitespace
 ;; -----------------------------
