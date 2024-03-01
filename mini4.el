@@ -123,7 +123,7 @@
 ;; Enable transparent encryption
 ;; https://orgmode.org/worg/org-tutorials/encrypting-files.html
 ;; ..............................................
-(require 'epa-file)
+;;(require 'epa-file)
 (epa-file-enable)
 ;; https://colinxy.github.io/software-installation/2016/09/24/emacs25-easypg-issue.html
 ;; If this line is not there, you get error: "inappropriate ioctl for device"
