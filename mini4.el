@@ -54,12 +54,7 @@
 (if (eq system-type 'darwin)
     (setq trash-directory "~/.Trash"))
 
-
 ;; ===========================================================================
-;; set cursor type
-;; ===========================================================================
-(setq-default cursor-type 'bar)
-
 ;; ===========================================================================
 ;; Line numbers
 ;; ===========================================================================
@@ -258,6 +253,13 @@
 ;; Optionally define a key to switch between Modus themes.  Also check
 ;; the user option `modus-themes-to-toggle'.
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+
+;; ===========================================================================
+;; set cursor
+;; Note: do this after setting the theme
+;; ===========================================================================
+(setq-default cursor-type 'bar)
+(set-cursor-color "#ff0000")
 
 ;; ===========================================================================
 ;; Install global packages
