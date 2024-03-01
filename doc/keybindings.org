@@ -1,4 +1,12 @@
+* functions keys
+** <f1> - help (default)
 
+** <f2> -
+- 2 column support (default)
+
+** <f3> - start macro (default)
+
+** <f4> - end/run macro (default)
 
 
 * org-mode
