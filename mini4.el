@@ -368,8 +368,22 @@
 ;; ---------------------------------------------------------------------------
 (straight-use-package 'org-noter)
 
+;; dired-hacks
+;; dependencies: f.el
+;; https://github.com/Fuco1/dired-hacks
+;; See also https://www.youtube.com/watch?v=vm-FvNdYFcc
+;; ---------------------------------------------------------------------------
+(straight-use-package 'f)
+(straight-use-package 'dired-hacks)
+
+(use-package dired-hacks
+  :bind (:map dired-mode-map
+              ("<tab>" . dired-subtree-toggle))
+  )
+
 ;; ===========================================================================
 ;; Babel configuration code
 ;; ===========================================================================
 (org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/osxKeyBindings.org"))
+(org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/diredMode.org"))
 (org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/orgMode.org"))

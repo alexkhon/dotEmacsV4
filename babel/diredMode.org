@@ -1,0 +1,61 @@
+* start dired
+** notes
+*** reasons
+- We want to open dired in "full screen" so we can peep-dired the files
+- We also want to automatically return to our window configuration when we quit
+  dired
+*** comments
+Works in conjunction with akh-quit-dired
+*** references
+https://www.reddit.com/r/emacs/comments/mpya80/problem_with_windowconfigurationtoregister/
+** code
+#+begin_src emacs-lisp
+  (defun akh-start-dired-jump ()
+    (interactive)
+    (window-configuration-to-register ?w)
+    (delete-other-windows)
+    (dired-jump)
+    )
+
+  (global-set-key (kbd "C-x d")   #'akh-start-dired-jump)
+#+end_src
+
+* close dired
+** notes
+*** reasons
+- When using dired, we should close the preview windows before quitting.
+*** comments
+Works in conjunction with akh-start-dired
+** code
+#+begin_src emacs-lisp
+  (defun akh-quit-dired ()
+    (interactive)
+    (delete-other-windows)
+    (quit-window)
+    (jump-to-register ?w)
+    )
+
+  (define-key dired-mode-map (kbd "q") 'akh-quit-dired)
+#+end_src
+
+* Make dired use the same buffer for viewing directory
+** source
+http://xahlee.info/emacs/emacs/emacs_dired_tips.html
+** code
+#+begin_src emacs-lisp
+  (if (< emacs-major-version 28)
+      (progn
+        (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
+        (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory
+        )
+    (progn
+      (setq dired-kill-when-opening-new-dired-buffer t)))
+#+end_src
+
+* dired-hooks
+#+BEGIN_SRC emacs-lisp
+    (add-hook 'dired-mode-hook
+              (lambda ()
+                (dired-hide-details-mode)
+                ))
+#+END_SRC
