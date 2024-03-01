@@ -1,0 +1,5 @@
+# org-babel output files
+*.el
+
+# Backup files
+*~
