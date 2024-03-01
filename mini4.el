@@ -15,11 +15,12 @@
   nil
   )
 
-
-
+;; ===========================================================================
+;; Open full frame
 ;; https://emacs.stackexchange.com/questions/2350/how-to-toggle-fullscreen-in-emacs-gui-mode-full-screen-option-is-greyed-out-i
 ;; <f11>   toggle-frame-fullscreen
 ;; M-<f10> toggle-frame-maximized
+;; ===========================================================================
 (toggle-frame-fullscreen)
 
 ;; ===========================================================================
@@ -29,7 +30,7 @@
 (set-face-attribute 'default nil    :font "Iosevka"    :height 160)
 
 ;; ===========================================================================
-;; Centralized back up
+;; Set centralized back up
 ;; ===========================================================================
 (if (file-directory-p "~/.emacs.d/backup")
     (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
@@ -48,22 +49,23 @@
       `((".*" ,user-temporary-file-directory t)))
 
 ;; ===========================================================================
-;; Using the Trash
+;; Use the Trash instead of rm
 ;; https://ashok-khanna.medium.com/introduction-to-dired-mode-91cecd3a06ff
 ;; ===========================================================================
 (if (eq system-type 'darwin)
     (setq trash-directory "~/.Trash"))
 
 ;; ===========================================================================
-;; ===========================================================================
-;; Line numbers
+;; Set line numbers
 ;; ===========================================================================
 (setq display-line-numbers-width-start '5)
 (setq display-line-numbers-type 'visual)
 (setq display-line-numbers 'relative)
 
+;; Always display line numbers
 (global-display-line-numbers-mode)
 
+;; Make the current line number more apparent
 (set-face-attribute 'line-number-current-line nil :foreground "#ECEFF4")
 
 ;; ===========================================================================
@@ -120,6 +122,7 @@
 ;; ..............................................
 ;;(require 'epa-file)
 (epa-file-enable)
+
 ;; https://colinxy.github.io/software-installation/2016/09/24/emacs25-easypg-issue.html
 ;; If this line is not there, you get error: "inappropriate ioctl for device"
 (setq epa-pinentry-mode 'loopback)
@@ -207,12 +210,13 @@
   (straight-use-package-by-default t))
 
 ;; ===========================================================================
-;; Override outdated default packages
+;; org-mode
 ;; ===========================================================================
 ;; Use updated org-mode package
 ;; - required by org-roam
-;; This must be invoked BEFORE any org-babel-load-files occur
-;; or emacs will report a version conflict
+;; - This must be invoked BEFORE any org-babel-load-files occur
+;;   or emacs will report a version conflict
+;; ---------------------------------------------------------------------------
 (straight-use-package 'org)
 
 (use-package org
@@ -225,8 +229,22 @@
   (add-hook 'org-mode-hook 'org-indent-mode)
   )
 
+;; org-roam
+;; ---------------------------------------------------------------------------
+(straight-use-package 'org-roam)
+
+(use-package org-roam
+  :init
+  (setq org-roam-directory (file-truename "~/Notebook/org-roam"))
+  :config
+  )
+
+;; org-noter
+;; ---------------------------------------------------------------------------
+(straight-use-package 'org-noter)
+
 ;; ===========================================================================
-;; Install ef themes
+;; Themes
 ;; ===========================================================================
 ;; https://protesilaos.com/emacs/ef-themes
 ;; ---------------------------------------------------------------------------
@@ -264,11 +282,22 @@
 ;; ===========================================================================
 ;; Install global packages
 ;; ===========================================================================
+
+;; try
+;; temporarily install a package for testing
+;; ---------------------------------------------------------------------------
+(straight-use-package 'try)
+
+;; vertico
+;; single column mini-buffer
+;; ---------------------------------------------------------------------------
 (straight-use-package 'vertico)
 (use-package vertico
   :config
   (vertico-mode t))
 
+;; orderless
+;; mini-buffer regex search tokens in any order
 ;; ---------------------------------------------------------------------------
 (straight-use-package 'orderless)
 (use-package orderless
@@ -277,6 +306,8 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
+;; marginalia
+;; adds notes to mini-buffer items
 ;; ---------------------------------------------------------------------------
 (straight-use-package 'marginalia)
 (use-package marginalia
@@ -294,6 +325,8 @@
   ;; package.
   (marginalia-mode))
 
+;; consult
+;; mini-buffer preview
 ;; ---------------------------------------------------------------------------
 (straight-use-package 'consult)
 (use-package consult
@@ -302,9 +335,8 @@
    :map ctl-x-map ("b" . consult-buffer))
   )
 
-;; ---------------------------------------------------------------------------
-(straight-use-package 'try)
-
+;; visual-fill-column
+;; center text, use to create a minimistic UI
 ;; ---------------------------------------------------------------------------
 (straight-use-package 'visual-fill-column)
 (use-package visual-fill-column
@@ -338,38 +370,6 @@
   (dired-preview-global-mode 1)
   )
 
-;; org-roam
-;; ---------------------------------------------------------------------------
-(straight-use-package 'org-roam)
-
-(use-package org-roam
-  :init
-  (setq org-roam-directory (file-truename "~/Notebook/org-roam"))
-  :config
-  )
-
-;; emacs ePub reader
-;; https://tech.toryanderson.com/2022/11/23/viewing-epub-in-emacs/
-;; https://depp.brause.cc/nov.el/
-;; ---------------------------------------------------------------------------
-(straight-use-package 'esxml)
-
-;;
-(straight-use-package 'nov)
-(use-package nov
-  :init
-  (setq nov-text-width 80)
-  (setq nov-text-width t)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  (add-hook 'nov-mode-hook 'visual-line-mode)
-  (add-hook 'nov-mode-hook 'visual-fill-column-mode)
-  )
-
-;; emacs org-noter
-;; ---------------------------------------------------------------------------
-(straight-use-package 'org-noter)
-
 ;; dired-hacks
 ;; dependencies: f.el
 ;; https://github.com/Fuco1/dired-hacks
@@ -381,6 +381,24 @@
 (use-package dired-hacks
   :bind (:map dired-mode-map
               ("<tab>" . dired-subtree-toggle))
+  )
+
+;; nov - emacs ePub reader
+;; dependencies: esxml.el
+;; https://tech.toryanderson.com/2022/11/23/viewing-epub-in-emacs/
+;; https://depp.brause.cc/nov.el/
+;; ---------------------------------------------------------------------------
+(straight-use-package 'esxml)
+(straight-use-package 'nov)
+
+(use-package nov
+  :init
+  (setq nov-text-width 80)
+  (setq nov-text-width t)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  (add-hook 'nov-mode-hook 'visual-line-mode)
+  (add-hook 'nov-mode-hook 'visual-fill-column-mode)
   )
 
 ;; ===========================================================================
