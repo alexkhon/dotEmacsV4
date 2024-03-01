@@ -114,6 +114,8 @@
 (setq-default fill-column 80)
 (global-display-fill-column-indicator-mode 1)
 
+(auto-fill-mode 1)
+
 ;; set pdf resolution
 ;; ..............................................
 (setq doc-view-resolution 220)
