@@ -273,11 +273,13 @@
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 
 ;; ===========================================================================
-;; set cursor
+;; Customize theme components
 ;; Note: do this after setting the theme
 ;; ===========================================================================
 (setq-default cursor-type 'bar)
 (set-cursor-color "#ff0000")
+
+(set-face-attribute 'fringe nil :background nil)
 
 ;; ===========================================================================
 ;; Install global packages
