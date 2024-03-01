@@ -243,6 +243,11 @@
 ;; ---------------------------------------------------------------------------
 (straight-use-package 'org-noter)
 
+;; org-mode custom code
+;; ---------------------------------------------------------------------------
+(org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/orgMode.org"))
+(org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/org-jrnl.org"))
+
 ;; ===========================================================================
 ;; Themes
 ;; ===========================================================================
@@ -408,4 +413,3 @@
 ;; ===========================================================================
 (org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/osxKeyBindings.org"))
 (org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/diredMode.org"))
-(org-babel-load-file (expand-file-name "~/Config/dotEmacsV4/babel/orgMode.org"))

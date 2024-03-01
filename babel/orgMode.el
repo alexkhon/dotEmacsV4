@@ -19,23 +19,6 @@
     (org-content n)
     ))
 
-;; Org-Bulletjournal
-;; Reference
-;; https://emacs.stackexchange.com/questions/36944/key-binding-to-invoke-more-than-two-commands
-;; -----------------------------
-(defun bulletjournal-new-entry ()
-  "Run 'insert a new bullet' and 'insert time' in sequence."
-  (interactive)
-  ;; Add org-return only if the line is not empty
-  ;; (when current-line-empty-p nil (org-return))
-  ;; NOT WORKING
-  (move-end-of-line nil)
-  (newline)
-  (insert "* ---- ")
-  (org-time-stamp '(16) nil)
-  (insert " ")
-  )
-
 ;; Org-Zettelkasten
   ;; https://stackoverflow.com/questions/251908/how-can-i-insert-current-date-and-time-into-a-file-using-emacs
   ;; -----------------------------
@@ -315,8 +298,7 @@
   (define-key org-mode-map (kbd "C-c x")       #'org-export-dispatch)
   (define-key org-mode-map (kbd "C-c i")       #'org-tree-to-indirect-buffer)
 
-  (define-key org-mode-map (kbd "C-c j")       #'bulletjournal-new-entry)
-  (define-key org-mode-map (kbd "C-c z")       #'zettlekasten-new-entry)
+    (define-key org-mode-map (kbd "C-c z")       #'zettlekasten-new-entry)
 
   (define-key org-mode-map (kbd "C-c e")       #'org-edit-src-code)
   )

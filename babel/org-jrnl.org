@@ -1,0 +1,89 @@
+#+TITLE:     org-jrnl.org
+#+EMAIL:     alex.k.hon@outlook.com
+#+AUTHOR:    Alex K. Hon
+#+OPTIONS:   ^:{}
+#+STARTUP:   overview
+
+* Set dependent packages
+1. s.el is a package for string manipulation
+
+#+BEGIN_SRC emacs-lisp
+  (straight-use-package 's)
+  (use-package s)
+#+END_SRC
+
+* Set journal location
+1. This should be set up as an emacs option
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-jrnl-journal-location "~/Journal")
+#+END_SRC
+
+* Set the path for today's file
+1. Save only variables that are needed globally
+2. Use let to define the tmp vars
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-jrnl-init-vars ()
+    "Set the journal filepath based on today's date"
+
+    (setq org-jrnl-today (format-time-string "%Y-%m-%d.%a"))
+    (setq tmp (s-split "-" org-jrnl-today))
+
+    (setq org-jrnl-today-year       (nth 0 tmp))
+    (setq org-jrnl-today-year-month (concat org-jrnl-today-year "-" (nth 1 tmp)))
+    (setq org-jrnl-today-file       (concat org-jrnl-today ".jrnl.org"))
+
+    (setq org-jrnl-today-filepath
+  	(concat org-jrnl-journal-location "/"
+    		org-jrnl-today-year "/"
+    		org-jrnl-today-year-month "/"
+    		org-jrnl-today-file)))
+#+END_SRC
+
+* Getting the today's bullet journal
+#+BEGIN_SRC emacs-lisp
+  (defun org-jrnl-open-today-file ()
+    "Open a journal file based on today's date"
+    (interactive)
+
+    ;; just in case the variable has not been initialized
+    (when (not (boundp 'org-jrnl-today-filepath)) (org-jrnl-init-vars))
+
+    ;; open the file
+    (find-file org-jrnl-today-filepath))
+
+#+END_SRC
+
+* Create new journal entry
+See: https://emacs.stackexchange.com/questions/36944/key-binding-to-invoke-more-than-two-commands
+#+BEGIN_SRC emacs-lisp
+  (defun org-jrnl-create-new-entry ()
+    "Run 'insert a new bullet' and 'insert time' in sequence."
+    (interactive)
+    ;; Add org-return only if the line is not empty
+    ;; (when current-line-empty-p nil (org-return))
+    ;; NOT WORKING
+    (move-end-of-line nil)
+    (newline)
+    (insert "* ---- ")
+    (org-time-stamp '(16) nil)
+    (insert " "))
+
+#+END_SRC
+
+* Initialize variables
+#+BEGIN_SRC emacs-lisp
+  (org-jrnl-init-vars)
+#+END_SRC
+
+* keybindings - set to <f2>
+See: https://www.emacswiki.org/emacs/PrefixKey
+
+#+BEGIN_SRC emacs-lisp
+  (define-prefix-command 'org-jrnl-map)
+  (global-set-key (kbd "<f2>") 'org-jrnl-map)
+
+  (define-key org-jrnl-map (kbd "<f2>") #'org-jrnl-open-today-file)
+  (define-key org-jrnl-map (kbd "j")    #'org-jrnl-create-new-entry)
+#+END_SRC
